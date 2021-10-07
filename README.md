@@ -13,6 +13,12 @@ MIT License
 # Build Docker Image for rating service
 docker build -t ratings .
 
+## How to run with Docker Compose
+
+```bash
+docker-compose up
+```
+
 # Run MongoDB with initial data in database
 docker run -d --name mongodb -p 27017:27017 \
   -v $(pwd)/databases:/docker-entrypoint-initdb.d bitnami/mongodb:5.0.2-debian-10-r2
