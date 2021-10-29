@@ -19,22 +19,17 @@ spec:
       - name: bookinfo-dev-ratings
         image: ghcr.io/tipsukoncheer/bookinfo-ratings:dev
         imagePullPolicy: Always
-        ports:
-        - containerPort: 8080
-          name: web-port
-          protocol: TCP
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-            scheme: HTTP
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-            scheme: HTTP
         env:
         - name: SERVICE_VERSION
-          value: v1
+          value: v2
+        - name: MONGO_DB_URL
+          value: mongodb://bookinfo-dev-ratings-mongodb:27017/ratings
+        - name: MONGO_DB_USERNAME
+          value: ratings
+        - name: MONGO_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: bookinfo-dev-ratings-mongodb-secret
+              key: mongodb-password
       imagePullSecrets:
       - name: registry-bookinfo
